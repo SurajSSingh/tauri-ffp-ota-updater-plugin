@@ -1,28 +1,17 @@
 import { readFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
+import { join } from 'node:path'
 import { cwd } from 'node:process'
-import typescript from '@rollup/plugin-typescript'
 
 const pkg = JSON.parse(readFileSync(join(cwd(), 'package.json'), 'utf8'))
 
+// `tsc` (TypeScript 7) emits the ESM build and type declarations into
+// dist-js; rollup only derives the CommonJS build from that output.
 export default {
-  input: 'guest-js/index.ts',
-  output: [
-    {
-      file: pkg.exports.import,
-      format: 'esm'
-    },
-    {
-      file: pkg.exports.require,
-      format: 'cjs'
-    }
-  ],
-  plugins: [
-    typescript({
-      declaration: true,
-      declarationDir: dirname(pkg.exports.import)
-    })
-  ],
+  input: pkg.exports.import,
+  output: {
+    file: pkg.exports.require,
+    format: 'cjs'
+  },
   external: [
     /^@tauri-apps\/api/,
     ...Object.keys(pkg.dependencies || {}),
