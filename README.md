@@ -65,8 +65,46 @@ fn main() {
 }
 ```
 
-Grant access in the app's capability file:
-`"permissions": ["ffp-ota-updater:default"]`.
+Grant access in the app's capability file
+(e.g. `src-tauri/capabilities/default.json`):
+
+```json
+{ "permissions": ["core:default", "ffp-ota-updater:default"] }
+```
+
+Call the plugin from the frontend, either through the JS API package
+(`tauri-plugin-ffp-ota-updater-api`):
+
+```js
+import { ping } from "tauri-plugin-ffp-ota-updater-api";
+
+await ping("hello"); // "hello"
+```
+
+or directly, which works without a bundler when `app.withGlobalTauri` is
+enabled (see `examples/tauri-app`):
+
+```js
+const { invoke } = window.__TAURI__.core;
+await invoke("plugin:ffp-ota-updater|ping", { payload: { value: "hello" } });
+```
+
+And from Rust, via the extension trait:
+
+```rust
+use tauri_plugin_ffp_ota_updater::FfpOtaUpdaterExt;
+
+app.ffp_ota_updater().ping(PingRequest { value: Some("hello".into()) })?;
+```
+
+## Testing
+
+```bash
+cargo test                                    # Rust tests (mock Tauri runtime)
+cargo clippy --all-targets -- -D warnings
+cargo fmt --all -- --check
+npm run check                                 # TypeScript type-check
+```
 
 ## License
 

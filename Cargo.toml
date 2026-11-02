@@ -2,9 +2,11 @@
 name = "tauri-plugin-ffp-ota-updater"
 version = "0.1.0"
 authors = [ "Suraj S Singh" ]
-description = ""
+description = "Tauri plugin for over-the-air (OTA) updates"
 edition = "2024"
 rust-version = "1.90"
+repository = "https://github.com/SurajSSingh/tauri-ffp-ota-updater-plugin"
+license = "BSL-1.0"
 exclude = ["/examples", "/dist-js", "/guest-js", "/node_modules"]
 links = "tauri-plugin-ffp-ota-updater"
 
@@ -15,3 +17,6 @@ thiserror = "2"
 
 [build-dependencies]
 tauri-plugin = { version = "2.7.2", features = ["build"] }
+
+[dev-dependencies]
+tauri = { version = "2.12.5", features = ["test"] }

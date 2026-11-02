@@ -1,8 +1,8 @@
-use tauri::{AppHandle, command, Runtime};
+use tauri::{AppHandle, Runtime, command};
 
-use crate::models::*;
-use crate::Result;
 use crate::FfpOtaUpdaterExt;
+use crate::Result;
+use crate::models::*;
 
 #[command]
 pub(crate) async fn ping<R: Runtime>(
