@@ -1,3 +1,8 @@
+// Windows test binaries that link the Tauri runtime crash at startup with
+// STATUS_ENTRYPOINT_NOT_FOUND (0xc0000139) unless an application manifest is
+// embedded, so this runtime-backed smoke test only runs on Linux and macOS.
+#![cfg(not(windows))]
+
 use tauri::test::{mock_builder, mock_context, noop_assets};
 use tauri_plugin_ffp_ota_updater::{FfpOtaUpdaterExt, PingRequest};
 
