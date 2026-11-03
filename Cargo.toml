@@ -7,7 +7,7 @@ edition = "2024"
 rust-version = "1.90"
 repository = "https://github.com/SurajSSingh/tauri-ffp-ota-updater-plugin"
 license = "BSL-1.0"
-exclude = ["/examples", "/dist-js", "/guest-js", "/node_modules"]
+exclude = ["/.github", "/examples", "/dist-js", "/guest-js", "/node_modules", "/package.json", "/rollup.config.js", "/tsconfig*.json"]
 links = "tauri-plugin-ffp-ota-updater"
 
 [dependencies]

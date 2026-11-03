@@ -14,8 +14,11 @@ functionality will be built on.
 | `guest-js/`          | TypeScript API wrapper, built to `dist-js/` (tsc + rollup) |
 | `examples/tauri-app` | Plain HTML/JS app for trying out the plugin                |
 
-Desktop only for now. Mobile support can be added later with
-`tauri plugin android init` / `tauri plugin ios init`.
+Desktop only for now. `src/mobile.rs` and the `android_path`/`ios_path` calls
+in `build.rs` are leftover template placeholders (no `android/` or `ios/`
+projects exist), so mobile builds are unsupported. To add mobile support, run
+`tauri plugin android init` / `tauri plugin ios init` and replace the
+placeholder plugin class in `src/mobile.rs`.
 
 ## Prerequisites
 
@@ -92,7 +95,7 @@ await invoke("plugin:ffp-ota-updater|ping", { payload: { value: "hello" } });
 And from Rust, via the extension trait:
 
 ```rust
-use tauri_plugin_ffp_ota_updater::FfpOtaUpdaterExt;
+use tauri_plugin_ffp_ota_updater::{FfpOtaUpdaterExt, PingRequest};
 
 app.ffp_ota_updater().ping(PingRequest { value: Some("hello".into()) })?;
 ```
@@ -101,11 +104,11 @@ app.ffp_ota_updater().ping(PingRequest { value: Some("hello".into()) })?;
 
 ```bash
 cargo test                                    # Rust tests (mock Tauri runtime)
-cargo clippy --all-targets -- -D warnings
+cargo clippy --all-targets --all-features -- -D warnings
 cargo fmt --all -- --check
 npm run check                                 # TypeScript type-check
 ```
 
 ## License
 
-See [LICENSE](LICENSE).
+[Boost Software License 1.0](LICENSE).
